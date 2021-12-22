@@ -1,3 +1,0 @@
-$posts = BlogPost::withCount('comments')->get();
-
-BlogPost::withCount(['comments', 'comments as new_comments' => function($query) { $query->where('created_at', '>=', '2021-11-19 18:26:54'); } ])->get();
