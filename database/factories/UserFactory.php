@@ -40,5 +40,4 @@ class UserFactory extends Factory
             'is_admin' => true
         ]);
     }
-    
 }
