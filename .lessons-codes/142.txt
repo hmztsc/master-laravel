@@ -1,0 +1,19 @@
+Section 27 : Query Scopes - Local & Global
+#142. Application: setting user_id for the new BlogPost
+------------------------------------------------
+*important : Read notes before write 
+
+[1] App\Http\Controllers\PostController
+
+... store(Storepost $request){
+   $validatedData = $request->validated();
+   $validatedData['user_id'] = $request->user()->id;
+}
+
+[2] App\Models\BlogPost
+
+...
+
+protected $fillable = [...  , 'user_id'];
+
+Notes : 

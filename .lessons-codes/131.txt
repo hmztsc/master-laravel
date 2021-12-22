@@ -1,0 +1,8 @@
+Section 25 : Deleting Models and Soft Deletes
+#131. Testing soft deleted models
+------------------------------------------------
+*important : Read notes before write 
+
+
+
+Notes : 

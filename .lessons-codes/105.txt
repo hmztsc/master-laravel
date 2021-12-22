@@ -1,0 +1,43 @@
+Section 22 : Model Factories 
+#105. Model Factory callbacks (afterCreating, afterMaking)
+------------------------------------------------  
+
+php artisan make:factory AuthorFactory --model=Author
+php artisan make:factory ProfileFactory --model=Profile
+
+AuthorFactory
+...
+
+$factory->afterCreating(App\Author::class, function($author, $faker){
+   $author->profile()->save(factory(App\Profile::class)->make());
+});
+
+new
+
+public function newProfile()
+{
+   return $this->afterCreating(function($author)){
+      $author->profile()->save(Profile::factory()->make());
+   }
+}
+
+php artisan tinker
+
+factory(App\Author::class)->create();
+
+new
+
+Author::factory()->newProfile()->create();
+
+$author = Author::find(last_id);
+
+$author->profile;
+clear
+
+$author;
+
+
+AuthorFactory
+...
+
+$factory->afterMaking()

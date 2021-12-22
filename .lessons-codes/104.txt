@@ -1,0 +1,55 @@
+Section 22 : Model Factories 
+#104. Model factory states
+------------------------------------------------  
+
+php artisan make:factory BlogPostFactory --model=BlogPost
+
+return [
+   'title' => $faker->sentence(10),
+   'content' => $faker->paragraphs(5, true)
+];
+
+new : 
+
+return [
+   'title' => $this->faker->sentence(10),
+   'content' => $this->faker->paragraphs(5, true)
+]
+
+php artisan tinker
+
+factory(App\BlogPost::class)->create();
+
+new : 
+BlogPost::factory()->create();
+
+$factory->state(App\BlogPost::class, 'newTitle', function(Faker $faker){
+   return [
+      'title' => 'New title',
+      'content' => 'Content of the blog post'
+   ];
+});
+
+find all references
+
+private function createDummyBlogPost(): BlogPost
+{
+   return factory(BlogPost::class)->state('newTitle')->create();
+}
+
+new 
+
+private function createDummyBlogPost(): BlogPost
+{
+   return BlogPost::factory()->states('newTitle')->create();
+}
+
+./vendor/bin/phpunit
+
+php artisan tinker
+
+factory(App\BlogPost::class)->states('newTitle')->create();
+
+new
+
+BlogPost::factory()->newTitle->create();

@@ -1,0 +1,46 @@
+Section 25 : Deleting Models and Soft Deletes
+#127. Deleting related models using cascading
+------------------------------------------------
+*important : Read notes before write 
+
+[1] php artisan make:migration AddCascadeDeleteToCommentsTable
+
+[2] ....add_cascade.....DeleteToCommentsTable.php
+
+... up() {
+   Schema::table(...{
+      $table->dropForeign(['blog_post_id']);
+      $table->foreign('blog_post_id')
+      ->references('id')
+      ->on('blog_posts')
+      ->onDelete('cascade');
+   });
+}
+
+... down() {
+   Schema::table(...{
+      $table->dropForeign(['blog_post_id']);
+      $table->foreign('blog_post_id')
+      ->references('id')
+      ->on('blog_posts');
+   });
+}
+
+[3] php artisan migrate
+
+[4] App\Models\BlogPost.php
+
+add a comment line to the following
+
+public static function boot(){
+   parent::boot();
+
+   // static::deleting(function(BlogPost $blogPost){
+   //   // dd('i was deleted');
+   //   $blogPost->comments()->delete();
+   //})
+}
+
+
+
+Notes : 

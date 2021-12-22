@@ -1,0 +1,18 @@
+Section 26 : Authorization, Policies, Gates
+#135. Verifying permissions of the user
+------------------------------------------------
+*important : Read notes before write 
+
+[1] php artisan tinker
+
+   User::all();
+   $user = User::find(21);
+   $post = BlogPost::find(17);
+
+   Gate::forUser($user)->denies('update-post', $post);
+   true
+   Gate::forUser($user)->allows('update-post', $post);
+   false
+
+ 
+Notes : 

@@ -1,0 +1,46 @@
+Section 27 : Query Scopes - Local & Global
+#147. Practical : Local Query Scope - most active users
+------------------------------------------------
+
+[1] create new scope method at App\Models\User
+
+public function scopeWithMostBlogPosts(Builder $query)
+{
+   $query->withCount('blogPosts')->orderBy('blog_posts_count', 'desc');
+}
+
+[2] create new argument in index method at ..\PostsController
+
+... index()
+{
+   [
+      'posts' => ... ,
+      'mostCommented' => ... ,
+      'mostActive' => User::withMostBlogPosts()->take(5)->get() ,
+   ]
+}
+
+[3] in view
+
+<div class="card">
+   <div class="card-body">
+      <h5 class="card-title">Most Active</h5>
+      <h6 class="card-subtitle mb-2 text-muted">Users with most posts written</h6>
+   </div>
+   <ul class="list-group list-group-flush">
+      @foreach($mostActive as $user)
+      <li class="list-group-item">
+         {{ $user->name }}
+      </li>
+      @endforeach
+   </ul>
+</div>
+
+[4] check it with tinker
+
+php artisan tinker
+
+User::withMostBlogPosts()->take(5)->get()->pluck('name');
+
+
+

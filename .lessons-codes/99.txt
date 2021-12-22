@@ -1,0 +1,24 @@
+php artisan tinker
+BlogPost::all();
+clear
+BlogPost::has('comments')->get();
+$comment = new Comments();
+$comment->blog_post_id = 3;
+$comment->comment = 'abc';
+$comment->save();
+clear
+BlogPost::has('comments)->get();
+clear
+$comment = new Comments();
+$comment->blog_post_id = 3;
+$comment->content = 'abcx';
+$comment->save();
+clear
+$comment = new Comments();
+$comment->blog_post_id = 4;
+$comment->content = 'abc';
+$comment->save();
+clear
+$posts = BlogPost::has('comments', '>=', 2)->get();
+clear
+$posts = BlogPost::whereHas('comments', function($query) { $query->where('content', 'like', '%abc%'); })->get();

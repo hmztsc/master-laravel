@@ -1,0 +1,17 @@
+Section 24 : Database seeding
+#120. Problem: SQLite test database NOT NULL problem
+------------------------------------------------  
+
+migrations/add_user_to_blog_posts_table.php
+
+$table->foreignId('user_id')->constrained()
+
+change to : 
+
+if(env('DB_CONNECTION') === 'sqlite_testing'){
+   $table->foreignId('user_id')->default(0)->constrained();
+} else {
+   $table->foreignId('user_id')->constrained();
+}
+
+Notlar :

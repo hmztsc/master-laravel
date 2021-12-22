@@ -1,0 +1,59 @@
+Section 27 : Query Scopes - Local & Global
+#146. Practical : Local Query Scope - most command posts
+------------------------------------------------
+
+[1] create new method at App\Models\BlogPost
+
+public function scopeMostCommented(Builder $query)
+{
+   return $query->withCount('comments')->orderBy('comments_count', 'desc');
+}
+
+[2] php artisan tinker
+BlogPost::mostCommented()->get()->pluck('comments_count');
+
+[3] create new layouts at resources/views/posts/index.blade.php
+
+<div class="row">
+   <div class="col-8">
+      ...
+   </div>
+   <div class="col-4">
+      <div class="card" style="width: 18rem;">
+         <div class="card-body">
+            <h5 class="card-title">Most Commented</h5>
+            <p class="card-text">What people are currently talking about</p>
+         </div>
+         <ul class="list-group list-group-flush">
+            <li class="list-group-item">An item</li>
+            <li class="list-group-item">A second item</li>
+            <li class="list-group-item">A third item</li>
+         </ul>
+      </div>
+   </div>
+</div>
+
+[4] App\Http\Controllers\PostsController
+
+return view(
+   'posts.index',
+   [
+      'posts' => ... ,
+      'most_commented' => BlogPost::mostCommented()->take(5)->get();
+   ]
+);
+
+[5] resources/views/posts/index.blade.php
+
+<h5 class="card-title">...</h5>
+<h6 class="card-subtitle mb-2 text-muted">What people are currently talking about</h6>
+
+<ul class="list-group list-group-flush">
+   @foreach($mostCommented as $post)
+   <li class="list-group-item">
+      <a href="{{ route('posts.show', ['post' => $post->id]) }}">
+      {{ $post->title }}
+      </a>
+   </li>
+   @endforeach
+</ul>

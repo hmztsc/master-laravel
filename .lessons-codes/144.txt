@@ -1,0 +1,43 @@
+Section 27 : Query Scopes - Local & Global
+#144. Global Query Scopes and potential issues
+------------------------------------------------
+*important : Read notes before write 
+
+[1] database/factories/CommentsFactory.php
+
+... definition()
+{
+   return [
+      ... ,
+      'created_at' => $this->dateTimeBetween('-3 months')
+   ];
+}
+
+[2] database/factories/BlogPostFactory.php
+
+... definition()
+{
+   return [
+      ... ,
+      'created_at' => $this->dateTimeBetween('-3 months')
+   ];
+}
+
+[3] php artisan db:seed
+
+[4] Generate new codes in App\Models\Comments with data copied from App\Models\BlogPosts
+
+...
+
+public static function boot(){
+   parent::boot();
+
+   static::addGlobalScope(new LatestScope);
+}
+
+[5] php artisan tinker
+
+
+
+
+Notes : 

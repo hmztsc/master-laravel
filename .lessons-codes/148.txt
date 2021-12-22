@@ -1,0 +1,51 @@
+Section 27 : Query Scopes - Local & Global
+#148. Practical : Local Query Scope - most active users last
+------------------------------------------------
+
+[1] create new scope method at Models\User
+
+public function scopeWithMostBlogPostsLastMonth(Builder $query)
+{
+   return $query->withCount(['blogPosts' => function(Builder $query){
+      $query->whereBetween(static::CREATED_AT, [now()->subMonths(1), now()]);
+   }])->having('blog_posts_count', '>=', 2)
+   ->orderBy('blog_posts_count', 'desc')
+   ->orderBy('name', 'asc');
+} 
+
+[2] controller
+
+   [
+      ... ,
+      'mostActiveLastMonth' => User::withMostBlogPostsLastMonth()->take(5)->get()
+   ]
+
+[2] view
+
+copy paste edit
+
+<div class="row mt-4">
+   <div class="col">
+      <div class="card">
+         <div class="card-body">
+            <h5 class="card-title">Most Active In Last Month</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Users with most posts written in last month</h6>
+         </div>
+         <ul class="list-group list-group-flush">
+            @foreach($mostActiveLastMonth as $user)
+            <li class="list-group-item">
+               {{ $user->name }}
+            </li>
+            @endforeach
+         </ul>
+      </div>
+   </div>
+</div>
+
+
+Notes: 
+
+->having('blog_posts_count', '>=', 2)
+
+this is not actually the right  way to do it you should use has('blogPosts', '>=', 2)
+It's fixed in the last lecture of the next section
