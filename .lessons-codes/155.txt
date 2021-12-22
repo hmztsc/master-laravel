@@ -1,0 +1,3 @@
+Section 28 : Laravel Blade Components
+#155. Application: Fixing an issue with HAVING clause
+------------------------------------------------

@@ -1,0 +1,49 @@
+Section 28 : Laravel Blade Components
+#153. Practical : creating reusable component for dates
+------------------------------------------------
+
+[1] components/updated.blade.php create new component
+
+copy from posts.show or posts.partials.post
+
+<p>
+added {{ $post->created_at->diffForHumans() }} 
+by {{ $post->user->name }}
+</p>
+
+copy to 
+components/updated.blade.php
+
+[2] App\Providers\AppServiceProvider
+
+public function boot()
+{
+   // old Blade::component('components.badge', Badge::class);
+   Blade::aliasComponent('components.badge', 'badge');
+   
+   Blade::aliasComponent('components.update', 'updated');
+}
+
+[3] components/updated.blade.php
+
+<p>
+added {{ $post->created_at->diffForHumans() }} 
+by {{ $post->user->name }}
+</p>
+
+replace to 
+
+<p>
+{{ empty(trim($slot)) ? 'Added', $slot }} {{ $date->diffForHumans() }} 
+
+@if(isset($name))
+by {{ $name }}
+@endif
+
+</p>
+
+[4] in views
+
+@updated(['date' => $post->created_at, 'name' => $post->user->name ])
+
+@endupdated

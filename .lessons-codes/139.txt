@@ -1,0 +1,20 @@
+Section 26 : Authorization, Policies, Gates
+#139. Verifying permissions in Blade Templates
+------------------------------------------------
+*important : Read notes before write 
+
+[1] resources/views/posts/partials/post.blade.php
+
+@can('update', $post)
+...
+edit btn ...
+@endcan
+
+@can('delete', $post)
+...
+DELETE btn ...
+@endcan
+
+
+
+Notes : 

@@ -1,0 +1,35 @@
+Section 28 : Laravel Blade Components
+#151. Component aliases
+------------------------------------------------
+
+[1] views/components/badge.blade.php - create new directory and copy file from views/badge.blade.php 
+
+[2] views/posts/show.blade.php - edit components
+
+   @component('components.badge' ...)
+   ...
+   @endcomponent
+
+[3] App\Providers\AppServiceProvider
+
+... boot()
+{
+   Badge::component('components.badge', 'badge');
+}
+
+new laravel 8
+
+... boot()
+{
+   Badge::aliasComponent('components.badge', 'badge');
+}
+
+[4] views/posts/show.blade.php - edit components
+
+@badge(...)
+...
+@endbadge
+
+or without alias
+
+<x-badge type="primary">new</x-badge>

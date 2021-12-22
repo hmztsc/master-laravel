@@ -1,0 +1,31 @@
+Section 22 : Model Factories 
+#106. Application: Implementing comment list
+------------------------------------------------  
+
+php artisan tinker
+
+BlogPost::with('comments')->findOrFail(2);
+
+Postcontroller
+...
+public function show($id)
+{
+   return view('posts.show', [
+      //'post' => BlogPost::findOrFail($id);
+      'post' => BlogPost::with('comments')->findOrFail($id);
+   ]);
+}
+
+posts.show.blade
+...
+<h4>Comments</h4>
+@forelse($post->comments as $comment)
+   <p>
+      {{ $comment->content }}
+   </p>
+   <p class="text-muted">
+      added {{ $comment->created_at->diffForHumans() }}
+   </p>
+@empty 
+   <p>No comments yet!</p>
+@endforelse

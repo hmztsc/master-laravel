@@ -1,0 +1,29 @@
+Section 25 : Deleting Models and Soft Deletes
+#129. Soft deletes querying
+------------------------------------------------
+*important : Read notes before write 
+
+php artisan tinker
+
+$posts = BlogPost::all()->pluck('id');
+
+$all = BlogPost::withTrashed()->get()->pluck('id');
+
+$trashed = BlogPost::onlyTrashed()->get()->pluck('id');
+
+BlogPost::onlyTrashed()->where('id',1)->get();
+
+$all = BlogPosts::withTrashed()->get();
+$post = $all->find(1);
+$post->trashed();
+result : true
+
+so
+
+$post = $all->find(23);
+$post->trashed();
+result : false
+
+output true or false if trashed true else false
+
+Notes : 

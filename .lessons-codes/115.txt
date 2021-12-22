@@ -1,0 +1,21 @@
+Section 23 : Authentication
+#115. logging out @guest directive, debugging crsf token errors
+------------------------------------------------  
+
+layout.blade.php
+
+@guest
+   @if(Route::has('register'))
+   <a ...>
+      Register
+   </a>
+   @endif
+   <a ...>
+      Login
+   </a>
+@else
+   <a onclick="event.preventDefault();document.getElementById('logout-form').submit();" ...></a>
+   <form id="logout-form" style="display:none;" ...>
+      @csrf
+   </form>
+@endguest

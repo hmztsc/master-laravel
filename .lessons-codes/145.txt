@@ -1,0 +1,49 @@
+Section 27 : Query Scopes - Local & Global
+#145. Local Query Scopes Introduction
+------------------------------------------------
+
+[1] create new method scopeLatest() before boot() App\Models\BlogPost
+
+...
+
+public fucntion scopeLatest(Builder $query)
+{
+   return $query->orderBy(static::CREATED_AT, 'desc');
+}
+
+...
+boot()
+{
+   ...
+}
+
+[2] make comment at App\Models\BlogPost
+
+static::addGlobalScope(new LatestScope);
+
+[3] create latest() at PostsController for posts
+
+index()
+{
+   replace
+   BlogPost::withCount('comments')->get()
+
+   to
+   BlogPost::latest()->withCount('comments')->get()
+}
+
+
+[4] create latest() at PostsController for comments
+
+show(){
+
+   convert to comment line
+
+   return view('posts.show', ['post' => BlogPost::with('comments')->findOrFail($id)]);
+
+   create instead 
+
+   return view('posts.show', ['post' => BlogPost::with(['comments' => function($query){
+            return $query->latest();
+        }])->findOrFail($id)]);
+}

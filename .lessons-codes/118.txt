@@ -1,0 +1,35 @@
+Section 23 : Authentication
+#118. Testing routes that require authentication
+------------------------------------------------  
+
+tests -> TestCase.php
+
+...
+use App\Models\User
+
+protected function user()
+{
+   factory(User::class)->create();
+}
+
+new 
+
+User::factory()->create();
+
+
+
+tests -> PostTest.php
+
+public function testStoreValid()
+{
+   $user = $this->user();
+   ...
+   
+   $this->actingAs($user);
+
+}
+
+
+
+
+Notlar :

@@ -1,0 +1,7 @@
+BlogPost::all();
+clear
+
+BlogPost::doesntHave('comments')->get();
+clear
+
+BlogPost::whereDoesntHave('comments', function($query) { $query->where('content', 'like', '%abc%'); })->get();

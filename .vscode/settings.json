@@ -1,0 +1,29 @@
+{
+    "files.autoSave": "off",
+    "window.zoomLevel": 0,
+    "workbench.colorTheme": "Umbra",
+    "editor.fontFamily": "'Cascadia Code', 'Operator Mono', 'Fira Code', 'Menlo Regular'",
+    "files.exclude": {
+        // "node_modules/": true,
+        // ".vscode/":true,
+        // "gulpfile.js":true,
+        // "package.json":true,
+        // "package-lock.json":true,
+        // "README.md":true,
+        // "server.php":true,
+        // "phpunit.xml":true,
+        // "webpack.mix.js":true,
+        // "artisan":true,
+        // ".styleci.yml":true,
+        // ".gitignore":true,
+        // ".gitattributes":true,
+        // ".editorconfig":true,
+        // "vendor":true,
+        // "tests":true,
+        // "bootstrap":true,
+        // "composer.json":true,
+        // "composer.lock":true,
+
+    },
+    "bladeFormatter.format.indentSize": 3
+}
