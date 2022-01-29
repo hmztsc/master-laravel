@@ -19,6 +19,8 @@
 @updated(['date' => $post->created_at, 'name' => $post->user->name ])
 @endupdated
 
+<p>Currently read by {{ $counter }} people</p>
+
 @forelse($post->comments as $comment)
 
 <p>{{ $comment->content }}</p>

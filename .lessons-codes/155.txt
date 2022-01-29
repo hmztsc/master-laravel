@@ -1,3 +1,10 @@
 Section 28 : Laravel Blade Components
 #155. Application: Fixing an issue with HAVING clause
 ------------------------------------------------
+
+[1] app/Models/User.php
+
+change this
+->having('blog_posts_count', '>=', 2)
+to
+->has('blog_posts_count', '>=', 2)

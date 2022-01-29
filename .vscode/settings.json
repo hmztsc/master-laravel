@@ -1,7 +1,7 @@
 {
-    "files.autoSave": "off",
+    "files.autoSave": "afterDelay",
     "window.zoomLevel": 0,
-    "workbench.colorTheme": "Umbra",
+    "workbench.colorTheme": "Default Dark+",
     "editor.fontFamily": "'Cascadia Code', 'Operator Mono', 'Fira Code', 'Menlo Regular'",
     "files.exclude": {
         // "node_modules/": true,

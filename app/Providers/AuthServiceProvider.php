@@ -49,7 +49,7 @@ class AuthServiceProvider extends ServiceProvider
         // Gate::resource('posts', BlogPostPolicy::class);
 
         Gate::before(function($user, $ability){
-            if($user->is_admin && in_array($ability, ['create','delete', 'update'])){
+            if($user->is_admin && in_array($ability, ['create', 'delete', 'update'])){
                 return true;
             }
         });

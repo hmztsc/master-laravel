@@ -1,0 +1,9 @@
+Section 29 : Caching
+#157. Laravel debugbar
+------------------------------------------------
+
+[1] composer require barryvdh/laravel-debugbar --dev
+
+[2] PostsController@index
+
+...->with('user')...

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\BlogPost;
 use App\Models\Comments;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class CommentsTableSeeder extends Seeder

@@ -41,7 +41,7 @@ new
 
 private function createDummyBlogPost(): BlogPost
 {
-   return BlogPost::factory()->states('newTitle')->create();
+   return BlogPost::factory()->newTitle()->create();
 }
 
 ./vendor/bin/phpunit
@@ -52,4 +52,4 @@ factory(App\BlogPost::class)->states('newTitle')->create();
 
 new
 
-BlogPost::factory()->newTitle->create();
+BlogPost::factory()->newTitle()->create();
